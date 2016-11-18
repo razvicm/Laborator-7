@@ -7,29 +7,20 @@ int exista(int);
 int main()
 {
    fstream fd;
-   int s, c1, c2;
-   char mesaj;
-   fd.open( "fdate.txt", ios::app);
-   mesaj = 'd';
-   while (tolower(mesaj) == 'd')
+   fd.open( "fdate.txt", ios::in);
+   int s, c1, c2, n1, n2;
+   n1 = n2 = 0;
+   fd >> s >> c1 >> c2;
+   while (fd.good())
    {
-      cout << "Introduceti setul (sectie cand_1 cand_2): ";
-      cin >> s >> c1 >> c2;
-      fd << s << '\t' << c1 << '\t' << c2 << endl;
-      if (exista(s))
-         cout << "Sectia a mai fost introdusa! " << endl;
-      else
-      {
-         fd.open( "fdate.txt", ios::app);
-         fd << s << '\t' << c1 << '\t' << c2 << endl;
-         fd.close();
-      }
-      cin.ignore();
-      cout << "Mai introduceti date? (d/n) ";
-      cin >> mesaj;
-      cin.ignore(10,'\n');
+      // Citire valida
+      n1 += c1;
+      n2 += c2;
+      //  Mai citesc un set de date
+      fd >> s >> c1 >> c2;
    }
    fd.close();
+   cout << "n1=" << n1 << " n2=" << n2 << endl;
    return 0;
 }
 
